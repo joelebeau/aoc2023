@@ -1,12 +1,11 @@
 package main
 
 import (
-	"bufio"
 	"errors"
 	"fmt"
-	"os"
 	"strings"
 	"strconv"
+	"github.com/joelebeau/aoc2023/aocUtils/input"
 )
 
 type game struct {
@@ -17,13 +16,13 @@ type game struct {
 }
 
 func main() {
-	file, err := getFile()
+	file, err := input.GetFile()
 	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
 
-	scanner, err := readInput(file)
+	scanner, err := input.ReadInput(file)
 	if err != nil {
 		panic(err)
 	}
@@ -46,32 +45,6 @@ func main() {
 	}
 
 	fmt.Println(total)
-}
-
-func getFile() (*os.File, error) {
-	filePath := os.Args[1]
-
-	file, err := os.Open(filePath)
-	if err != nil {
-		return nil, err
-	}
-
-	return file, nil
-}
-
-func readInput(file *os.File) (*bufio.Scanner, error) {
-	fileInfo, err := file.Stat()
-	if err != nil {
-		return nil, err
-	}
-
-	fileSize := fileInfo.Size()
-	scanner := bufio.NewScanner(file)
-
-	buffer := make([]byte, fileSize)
-	scanner.Buffer(buffer, int(fileSize))
-
-	return bufio.NewScanner(file), nil
 }
 
 func buildGame(line string) (*game, error) {
