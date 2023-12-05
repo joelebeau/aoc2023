@@ -44,6 +44,7 @@ func getTotalCardsFromCardMatches(cardMatches []int) int {
         cardMatchesWithCounts[i][0] = cardMatch
         cardMatchesWithCounts[i][1] = 1
     }
+    total := 0
 
     // Loop over each original card
     for i := 0; i < len(cardMatchesWithCounts); i++ {
@@ -57,11 +58,9 @@ func getTotalCardsFromCardMatches(cardMatches []int) int {
                 cardMatchesWithCounts[k][1] += 1
             }
         }
+        total += cardMatchesWithCounts[i][1]
     }
-    total := 0
-    for _, cardMatchesWithCount := range cardMatchesWithCounts {
-        total += cardMatchesWithCount[1]
-    }
+
     return total
 }
 
